@@ -1,3 +1,4 @@
+"use client"
 import { ethers } from "ethers"
 import { useState } from "react"
 import { nftaddress,nftmarketaddress } from "../../../config"
@@ -103,13 +104,71 @@ const auth =
     const signer = provider.getSigner()
 
     //sign into nft smart contract  
-    let contract = new ethers.Contract(nftaddress,NFT.signer,signer)
+    let contract1 = new ethers.Contract(nftaddress,NFT.abi,signer)
 
+    //above everything is done for get below one
     //need a tokenURI for paramaeter in nft.sol
-    let transaction = await contract.createToken(url)
+    let transaction = await contract1.createToken(url)
     //async take data
     let tx=await transaction.wait()
+    let event = tx.events[0];
+    let value = event.args[2];
+    let tokenId=value.toNumber();//convert string to number type
+    const price = ethers.utils.parseUnits(formInput.price,'ether');
+
+    //get commition for listing one NFT
+    let contract2 = new ethers.Contract(nftmarketaddress,NFTMarket.abi,signer);
+    let listingPrice = new contract2.getListingPrice();
+    listingPrice = listingPrice.toString();
+
+    transaction= await contract2.createMarketItem(nftaddress,tokenId,price,{value:listingPrice})
+    await transaction.wait()
+    // let transaction2 = await contract2.createMarketItem(nftaddress,tokenId,price,{value:listingPrice})
+    // await transaction2.wait()
+
+    //after create nft we can push it to main page
+    router.push('/');
   }
+//w-1/2 is half width
+  return(
+    <div className="flex justify-center">
+      <div className="w-1/2 flex flex-col pb-12">
+          <input 
+          placeholder="Enter NFT name" 
+          className="mt-8 border rounded p-4"
+          onChange={e=>updateFormInput({...formInput,name:e.target.value})}
+          />
+          <textarea
+          placeholder="Enter NFT description"
+          className="mt-2 border rounded p-4"
+          onChange={e=>updateFormInput({...formInput,description:e.target.value})}
+
+          />
+
+          <input
+          placeholder="Enter NFT price in Eth"
+          className="mt-2 border rounded p-4"
+          onChange={e=>updateFormInput({...formInput,price:e.target.value})}
+          />
+
+          <input 
+          type="file"
+          name="asset"
+          className="my-3"
+          onChange={onChange}
+          />
+
+          {
+            fileUrl && (
+              <img className="rounded mt-4" width="350" src={fileUrl} />
+            )
+          }
+          <button onClick={createItem} className="font-bold mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:to-yellow-500 text-white rounded pd-4 shadow-lg">
+            Create NFT
+          </button>
+      </div>
+    </div>
+  )
 }
 
 //any field is black return back

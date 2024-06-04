@@ -129,7 +129,7 @@ contract NFTMarket is ReentrancyGuard{
         uint totalItemCount = _itemIds.current();
         uint itemCount = 0;
         uint currentIndex=0;
-//if there are 1000 NFTs.find how many NFTs own by address/msg.sender
+        //if there are 1000 NFTs.find how many NFTs own by address/msg.sender
         for (uint i=0; i<totalItemCount; i++) 
         {
             if(idToMarketItem[i+1].owner == msg.sender){
