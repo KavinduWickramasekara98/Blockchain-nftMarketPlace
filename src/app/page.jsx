@@ -30,27 +30,33 @@ export default function Home() {
         const data = nftMarketContract.fetchMarketItems();
 
         //all need to work perfectly so use promise.
+        try {
+            const items = await Promise.all(data.map(async (i)=> {
+                // const items = await Promise.all(data.products.map(async i=> {    
+                     const tokenURI = await nftContract.tokenURI(i.tokenId)
+                     const meta = await axios.get(tokenURI)
+         
+                     //for parseInteger 
+                     let price = ethers.utils.formatUnits(i.price.toString(),'ether')
+                     let item = {
+                         price,
+                         tokenId:i.tokenId.toNumber(),
+                         seller:i.seller,
+                         owner:i.owner,
+                         image:meta.data.image,
+                         name:meta.data.name,
+                         description:meta.data.description
+                     }
+                     return item   
+                    }));   
+                    setNFTs(await items)
+                    setLoadingState('loaded')      
+        } catch (error) {
+            console.log("Load NFT file : "+ error);
+        }
 
-        const items = await Promise.all(data.map(async i=> {
-       // const items = await Promise.all(data.products.map(async i=> {    
-            const tokenURI = await nftContract.tokenURI(i.tokenId)
-            const meta = await axios.get(tokenURI)
-
-            //for parseInteger 
-            let price = ethers.utils.formatUnits(i.price.toString(),'ether')
-            let item = {
-                price,
-                tokenId:i.tokenId.toNumber(),
-                seller:i.seller,
-                owner:i.owner,
-                image:meta.data.image,
-                name:meta.data.name,
-                description:meta.data.description
-            }
-            return item
-        }));
-        setNFTs(items)
-        setLoadingState('loaded')
+       
+        
     }
     async function buyNFT(nft){
         //same to create NFT

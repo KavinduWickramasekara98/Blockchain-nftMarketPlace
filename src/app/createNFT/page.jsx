@@ -63,22 +63,15 @@ const auth =
 
         //if anything is wrong
       }catch(e){
-        console.log("error uploading file , please try again",error);
+        console.log("error uploading file , please try again :"+e);
       }
     }
-    return (
     
-    
-    //convert in to meta data
-    //publish data to ipfs
-    //mint NFTs
-    //read event from blockchain catch backend and send it to UI
-    <div>createNFT</div>
-  )
   async function createItem(){
     const {name,description,price}=formInput
     if(!name || !description || !price || !fileUrl) return;
   
+    console.log("name : "+name +"/nDescription"+description+"/nPrice"+price);
     //create json string of data going to pass
     //use json format
     const data = JSON.stringify({
@@ -129,8 +122,14 @@ const auth =
     //after create nft we can push it to main page
     router.push('/');
   }
-//w-1/2 is half width
+
   return(
+    
+    //convert in to meta data
+    //publish data to ipfs
+    //mint NFTs
+    //read event from blockchain catch backend and send it to U
+
     <div className="flex justify-center">
       <div className="w-1/2 flex flex-col pb-12">
           <input 
@@ -163,7 +162,7 @@ const auth =
               <img className="rounded mt-4" width="350" src={fileUrl} />
             )
           }
-          <button onClick={createItem} className="font-bold mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:to-yellow-500 text-white rounded pd-4 shadow-lg">
+          <button onClick={createItem} className="font-bold mt-4 bg-gradient-to-r from-green-400 to-blue-500 hover:to-yellow-500 text-white rounded pd-7 shadow-lg ">
             Create NFT
           </button>
       </div>

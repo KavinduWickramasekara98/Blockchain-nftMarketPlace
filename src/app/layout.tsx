@@ -16,8 +16,10 @@ export default function RootLayout({
       <title>Ivak Dev Market</title>
       </head>
       <body>
+      <div className="border-b p-6 bg-gradient-to-b from-yellow-950 to-yellow-100">
       <Nav/> 
         {children}
+      </div>
       </body>
     </html>
   )
