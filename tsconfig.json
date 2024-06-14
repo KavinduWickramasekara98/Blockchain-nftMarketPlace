@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/layout.tsx", "src/app/page.jsx", "src/app/index.jsx", "src/app/Dashboard.jsx", "src/app/createNFTs.jsx", "src/app/createNFT/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/layout.tsx", "src/app/page.jsx", "src/app/index.jsx", "src/app/Dashboard.jsx", "src/app/createNFTs.jsx", "src/app/createNFT/page2.jsx", "src/app/createNFT/page3.jsx", "src/app/createNFT/api/Route.js", ".next/types/app/createNFT/api/page.js", "src/app/createNFT/api/Route.js", "src/app/createNFT/api/files.js", "src/app/pinata/Files.jsx", "src/app/pinata/index.jsx"],
   "exclude": ["node_modules"]
 }

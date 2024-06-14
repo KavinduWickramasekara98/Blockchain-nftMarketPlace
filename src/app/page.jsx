@@ -28,7 +28,7 @@ export default function Home() {
         const nftContract = new ethers.Contract(nftaddress,NFT.abi,provider);
         const nftMarketContract = new ethers.Contract(nftmarketaddress,NFTMarket.abi,provider);
         const data = nftMarketContract.fetchMarketItems();
-
+console.log("ALL data /n"+data);
         //all need to work perfectly so use promise.
         try {
             const items = await Promise.all(data.map(async (i)=> {
