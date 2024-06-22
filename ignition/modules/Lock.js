@@ -35,3 +35,18 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+
+// const { build } = require('@nomiclabs/hardhat-ignition');
+
+// const deployment = build.deployment('Deployment', async (deploy, namedAccounts) => {
+//   // Deploy the NFTMarket contract
+//   const nftMarket = await deploy('NFTMarket');
+//   console.log("nft market deployed to:", nftMarket.address);
+
+//   // Deploy the NFT contract with the address of the deployed NFTMarket contract
+//   const nft = await deploy('NFT', { args: [nftMarket.address] });
+//   console.log("nft deployed to :", nft.address);
+// });
+
+// module.exports = { deployment };

@@ -105,26 +105,27 @@ contract NFTMarket is ReentrancyGuard{
 
     }
 //find unsold NFTs..SO some one can buy NFTs
-    function fetchMarketItems() public view returns(MarketItem[] memory){
+ 
+//
+
+    function fetchMarketItems() public view returns (MarketItem[] memory){
         uint itemCount = _itemIds.current();
-        uint unSoldItemCount = _itemIds.current()-_itemsSold.current();
-        uint currentIndex = 0;
-        MarketItem[] memory items = new MarketItem[](unSoldItemCount);
-        for (uint i=0; i<itemCount; i++) 
-        {
-            if(idToMarketItem[i+1].owner==address(0)){  //address(0) gives the unsold items.we assign owner when create
-                uint currentId = idToMarketItem[i+1].itemId;
+        uint unsoldItemCount= _itemIds.current() - _itemsSold.current();
+        uint currentIndex=0;
+
+        MarketItem[] memory items = new MarketItem[](unsoldItemCount);
+        for(uint i=0; i< itemCount;i++){
+            if(idToMarketItem[i+1].owner==address(0)){ //address(0) gives the unsold items.we assign owner when create
+                uint currentId=idToMarketItem[i+1].itemId;
                 MarketItem storage currentItem=idToMarketItem[currentId];
                 items[currentIndex]=currentItem;
                 currentIndex+=1;
-
             }
+
         }
-        return items;
+            return items;
     }
 
-
-//
     function fetchMyNFT() public view returns(MarketItem[] memory){
         uint totalItemCount = _itemIds.current();
         uint itemCount = 0;

@@ -34,7 +34,7 @@ it("Deploy smart contracts on blockchain,mint new nfts,sell a NFT and make trans
 
         //same ipfs  and token id .this is not real one 
         await market.createMarketItem(nftContractAddress,1,sellingPrice,{value:listingPrice}) //token id 1
-        await market.createMarketItem(nftContractAddress,2,sellingPrice,{value:listingPrice}) //token id 1 
+        await market.createMarketItem(nftContractAddress,2,sellingPrice,{value:listingPrice}) //token id 2 
 
         //js structuring and distructuring
         const[_,buyerAddress]=await ethers.getSigners() //take last account address from all accountaddress
@@ -42,17 +42,21 @@ it("Deploy smart contracts on blockchain,mint new nfts,sell a NFT and make trans
     
         let items = await market.fetchMarketItems();
         //all market items will load async without error
-        items = await Promise.all(items.map(async i=>{ //promise is satisfied then will be called to assert
-            const tokenURI=await nft.tokenURI(i.tokenId)
-            let item={
-                price:i.price.toString(),
-                tokenId:i.tokenId.toString(),
-                seller:i.seller,
-                owner:i.owner,
-                tokenURI
+        await items.wait();
+        items = await Promise.all(
+            items.map(async i=>{ //promise is satisfied then will be called to assert
+                const tokenURI=await nft.tokenURI(i.tokenId)
+                let item={
+                    price:i.price.toString(),
+                    tokenId:i.tokenId.toString(),
+                    seller:i.seller,
+                    owner:i.owner,
+                    tokenURI
+                }
+                return item
             }
-            return item
-        }))
+        )
+    )
         console.log('items:',items)
     });
 });
