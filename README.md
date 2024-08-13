@@ -2,6 +2,16 @@
 ## Overview
 This project is a decentralized NFT (Non-Fungible Token) marketplace built on the Ethereum blockchain. It allows users to mint, buy, and view NFTs using a seamless and intuitive interface. The application leverages Hardhat for local blockchain development, Pinata as an IPFS service for storing NFT metadata, and Next.js for the front-end. Users can connect their wallets to interact with the marketplace, enabling secure and transparent transactions.
 
+<details><summary>Image Initial Page</summary>
+   <img src="https://github.com/user-attachments/assets/d52a31db-543e-41c8-9d26-58985741a570" width=35% height=35%>
+</details>
+<details><summary>Image  Mint NFT </summary>
+   <img src="https://github.com/user-attachments/assets/2d2392a0-9ea2-4342-bbfd-20a905e3e8b6" width=35% height=35%>
+   <img src="https://github.com/user-attachments/assets/6e658cdb-eb75-4a82-ab51-5d333546b418" width=35% height=35%>
+   
+</details>
+
+
 ## Features
 Mint NFTs: Users can mint their own NFTs by uploading artwork or any digital asset, with metadata stored on IPFS via Pinata.
 View Owned NFTs: Users can view the NFTs they own directly within the marketplace.
